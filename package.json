@@ -1,7 +1,7 @@
 {
   "name": "@jaakkko/simple-form-validator",
   "version": "1.0.1",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "private": false,
   "scripts": {
