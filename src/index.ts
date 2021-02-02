@@ -1,33 +1,20 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express'
-import { I18n, __ } from 'i18n'
-import path from 'path'
-
-const i18n = new I18n()
-const locales = ['en', 'fi']
-
-i18n.configure({
-  locales,
-  directory: path.join(__dirname, 'locales'),
-  defaultLocale: 'en',
-})
 
 export default function validate(
   // eslint-disable-next-line
-  body: Record<string, (value: any) => string | null>
+  body: Record<string, (value: any, req: Request) => string | null>
 ): RequestHandler {
   return (req: Request, res: Response, next: NextFunction) => {
-    const locale = req.acceptsLanguages(locales) || 'en'
+    const locale = i18n.getLocale(req)
+    console.log(locale)
     const errors: Record<string, string> = {}
     Object.entries(body).forEach(([key, func]) => {
       let error: string | null
       const value = req.body[key]
       if (Object.prototype.hasOwnProperty.call(req.body, key) && value !== '') {
-        error = func(value)
+        error = func(value, req)
       } else {
-        error = i18n.__({
-          phrase: 'Field required',
-          locale,
-        })
+        error = req.__('Field required')
       }
 
       if (error) {
