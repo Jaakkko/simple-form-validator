@@ -5,8 +5,6 @@ export default function validate(
   body: Record<string, (value: any, req: Request) => string | null>
 ): RequestHandler {
   return (req: Request, res: Response, next: NextFunction) => {
-    const locale = i18n.getLocale(req)
-    console.log(locale)
     const errors: Record<string, string> = {}
     Object.entries(body).forEach(([key, func]) => {
       let error: string | null
