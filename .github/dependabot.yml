@@ -1,0 +1,34 @@
+# Dependabot configuration for automatic dependency updates
+# Documentation: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  # Enable version updates for npm (yarn is supported via npm ecosystem)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    # Open pull requests for security updates
+    open-pull-requests-limit: 10
+    # Group all patch updates together
+    groups:
+      patch-updates:
+        update-types:
+          - "patch"
+      minor-updates:
+        update-types:
+          - "minor"
+    # Labels to add to pull requests
+    labels:
+      - "dependencies"
+      - "automated"
+    # Automatically rebase PRs when they become outdated
+    rebase-strategy: "auto"
+    # Allow both direct and indirect dependencies to be updated
+    allow:
+      - dependency-type: "all"
+    # Prioritize security updates
+    # Security updates are checked daily by default
