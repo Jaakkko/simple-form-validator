@@ -24,7 +24,8 @@ jobs:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
       
       - name: Auto-approve Dependabot PR
-        # Auto-approve all Dependabot PRs
+        # Auto-approve all Dependabot PRs to facilitate review
+        # Note: Auto-merge is only enabled for patch updates (see next step)
         run: gh pr review --approve "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}

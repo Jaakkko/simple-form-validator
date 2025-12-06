@@ -28,6 +28,7 @@ updates:
     # Automatically rebase PRs when they become outdated
     rebase-strategy: "auto"
     # Allow both direct and indirect dependencies to be updated
+    # This is important for security updates as vulnerabilities often exist in transitive dependencies
     allow:
       - dependency-type: "all"
     # Prioritize security updates
